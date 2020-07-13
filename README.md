@@ -20,7 +20,7 @@ WHEN I click on a city in the search history
 THEN I am again presented with current and future conditions for that city
 
 ## Screen Shot
-
+![Image](https://github.com/jahallb1/weather-api/blob/master/assets/Screen%20Shot%202020-07-12%20at%209.53.02%20PM.png)
 
 ## Created by
 created by Josh Hall
