@@ -11,28 +11,29 @@
     <nav class="navbar text-white bg-dark text-center">
         Weather
       </nav>
-      <div class="">
-          <!--search bar-->
-          <input type="text" id="city-name" class="form-control" name="city-name">
-          <button type="submit" id="btn-primary" class="btn">Search</button>
-      </div>
       <div class="row">
-      <div class="col-2">
+          <!--search bar-->
+          <input type="text" id="city-name" class="form-control w-25 input-group-prepend" name="city-name">
+          <button type="submit" id="btn" class="btn btn-primary">Search</button>
+      </div>
+      <div class="row flex-row d-flex">
+      <div class="col-4">
           <!--history-->
           <ul id="listOfCities" class="list-group">
           </ul>
       </div>
-      <div class="container col-10 justify-content-end">
+      <div class="container col-8">
             <!--today-->
             <h2>Current Weather in:<span id="city"></span></h2>
         </div>
-        <div class="col-10 container-forecast">
+        <div class="col-10 container-forecast d-flex" style="width: 18rem;">
             <!--forcast create div container labeled forecast-->
-              </div>
+              
         </div>
     </div>
     
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
 <script src="./assets/js/srcipt.js"></script>
 </body>
 </html>

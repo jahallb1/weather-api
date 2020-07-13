@@ -7,7 +7,7 @@ let containerEl = document.querySelector(".container");
 let forcastContainerEl = document.querySelector(".container-forecast");
 
 
-$("#btn-primary").on("click", function () {
+$(".btn").on("click", function () {
 
     //addToList(cityValue);
     //function call
@@ -45,7 +45,8 @@ function oneApi(lat, lon, city) {
             if (response.ok) {
                 response.json().then(function (data) {
                     displayWeather(data, city);
-                    console.log(city);
+
+            
                 });
             } else {
                 alert("Error ")
@@ -54,14 +55,18 @@ function oneApi(lat, lon, city) {
 }
 
 function displayWeather(data, city) {
+    let date = moment().format("MM/DD//YYYY")
     let temp = data.current.temp;
     let humid = data.current.humidity;
     let wind = data.current.wind_speed;
     let uvi = data.current.uvi;
 
+    let dateEl =document.createElement("p");
+    dateEl.textContent = date;
+    containerEl.appendChild(dateEl);
+
     let cityEl = document.createElement("span");
     cityEl.textContent = " " + city;
-    console.log(city);
     cityNameEl.appendChild(cityEl);
 
     let tempEl = document.createElement("p");
@@ -80,45 +85,54 @@ function displayWeather(data, city) {
     uviEl.textContent = "UV Index " + uvi;
     containerEl.appendChild(uviEl);
 
-
+    displayForecast(data);
 
 }
- function displayForecast(data,) {
+ function displayForecast(data) {
+     console.log(data);
      for (var i = 1; i < 6; i++) {
-         let temp = data.list[i].main.temp;
-         let date = (moment().add(i, "days").format("MM/DD//YYYY"));
-         let icon = list[i].weather[0].icon
-         let humid = data.list[i].main.humidity;
+         let temp = data.daily[i].temp.max;
+         let date = moment().add(i, "days").format("MM/DD/YYYY");
+         let icon = data.daily[i].weather[0].icon;
+         let humid = data.daily[i].humidity;
+
+         let dateEl = document.createElement("h3");
+         dateEl.textContent =  date;
+         dateEl.className = "card card-title";
+         let cardContainerEl = document.createElement("div");
+         cardContainerEl.appendChild(dateEl);
+         
 
          let tempEl = document.createElement("p");
          tempEl.textContent = "Temp: " + temp;
-         tempEl.addClass = "card card-body card-text"
-         forcastContainerEl.appendChild(tempEl);
-
-         let dateEl = document.createElement();
-         dateEl.textContent = "<h3>" + date + "</h3>";
-         dateEl.addClass = "card card-title";
-         forcastContainerEl.appendChild(dateEl);
+         tempEl.className = "card card-text"
+         cardContainerEl.appendChild(tempEl);
 
          let iconEl = document.createElement("img");
-         iconEl.textContent = "<img " + "src=" +"http://openweathermap.org/img/wn/" + icon +".png";
-         iconEl.addClass = "card card-body card-text"
-         forcastContainerEl.appendChild(iconEl)
+         iconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + icon + "@2x.png");
+         iconEl.className = "card card-body card-text"
+         cardContainerEl.appendChild(iconEl)
 
-         let humidEl = document.createElement("");
+         let humidEl = document.createElement("p");
          humidEl.textContent = "Humidity: " + humid;
-         humidEl.addClass = "card card-body card-text";
-         forcastContainerEl.appendChild(humidEl);
-     }
-         
-         // add in rest of ids
-         //add the elements
+         humidEl.className = "card card-text";
+         cardContainerEl.appendChild(humidEl);
 
+         forcastContainerEl.appendChild(cardContainerEl);
+     }
+
+ }
+
+ var addToLocalStorage = function(city, data) {
+     var existingInfo = localStorage.getItem(city);
+     existingInfo = {};
+     existingInfo[data] = value;
+     localStorage.setItem(city, JSON.stringify(existingInfo));
  }
 
  //
 
-displayForecast();
+
 
 
 // }
